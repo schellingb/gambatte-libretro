@@ -1,6 +1,8 @@
 #include "net_serial.h"
 #include "libretro.h"
 #include "gambatte_log.h"
+
+#ifdef GBLINK_POSIX_SOCKETS
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -294,3 +296,148 @@ bool NetSerial::check(unsigned char out, unsigned char& in, bool& fastCgb)
 
 	return true;
 }
+#else //!GBLINK_LIBRETRO_NET
+
+#include "libretro.h"
+
+struct NetCallBacks
+{
+	static bool is_connected;
+	static unsigned char recv_buffer[32], recv_len;
+	static retro_netpacket_send_t send_fn;
+	static uint16_t target_client_id;
+
+	static void RETRO_CALLCONV start(uint16_t client_id, retro_netpacket_send_t _send_fn)
+	{
+		send_fn = _send_fn;
+		if (client_id != 0)
+		{
+			// I am a client connected to the host
+			is_connected = true;
+			target_client_id = 0;
+		}
+	}
+
+	static void RETRO_CALLCONV receive(const void* pkt, size_t pktlen, uint16_t client_id)
+	{
+		if (pktlen != 2 || recv_len == sizeof(recv_buffer)) return;
+		memcpy(recv_buffer + recv_len, pkt, 2);
+		recv_len += 2;
+	}
+
+	static void RETRO_CALLCONV stop(void)
+	{
+		is_connected = false;
+		recv_len = 0;
+		send_fn = NULL;
+	}
+
+	static bool RETRO_CALLCONV connected(uint16_t client_id)
+	{
+		if (is_connected) return false; // refuse additional players joining
+		is_connected = true;
+		target_client_id = client_id;
+		return true;
+	}
+
+	static void RETRO_CALLCONV disconnected(uint16_t client_id)
+	{
+		if (!is_connected || client_id != target_client_id) return; // unknown client disconnects
+		is_connected = false;
+		recv_len = 0;
+	}
+
+	static bool SendPacket(unsigned char buffer[2])
+	{
+		// send and flush packet immediately
+		send_fn(RETRO_NETPACKET_RELIABLE, buffer, 2, target_client_id, false);
+		send_fn(0, 0, 0, 0, 0);
+		return is_connected; // if false stop was called
+	}
+
+	static bool ReadPacket(unsigned char buffer[2], bool block)
+	{
+		if (!recv_len)
+		{
+			// check latest incoming
+			send_fn(0, 0, 0, 0, 0);
+
+			// give up if we got disconnected or not blocking without data
+			if (!is_connected || (!recv_len && !block))
+				return false;
+
+			if (!recv_len)
+			{
+				// block until data arrives
+				for (clock_t t_start = clock();;)
+				{
+					send_fn(0, 0, 0, 0, 0);
+					if (!is_connected) return false;
+					if (recv_len) break;
+					if (((clock() - t_start) / CLOCKS_PER_SEC) < 5) continue;
+					gambatte_log(RETRO_LOG_ERROR, "Error: Received no data from other player in 5 seconds\n");
+					is_connected = false;
+					recv_len = 0;
+					return false;
+				}
+			}
+		}
+
+		// read incoming data
+		buffer[0] = recv_buffer[0];
+		buffer[1] = recv_buffer[1];
+		memmove(recv_buffer, recv_buffer + 2, recv_len - 2);
+		recv_len -= 2;
+		return true;
+	}
+};
+
+bool NetCallBacks::is_connected;
+unsigned char NetCallBacks::recv_buffer[32], NetCallBacks::recv_len;
+retro_netpacket_send_t NetCallBacks::send_fn;
+uint16_t NetCallBacks::target_client_id;
+
+unsigned char NetSerial::send(unsigned char data, bool fastCgb)
+{
+	// return error if not connected
+	if (!NetCallBacks::is_connected)
+		return 0xFF;
+
+	// send data then do a blocking read of incoming data
+	unsigned char buffer[2] = { data, fastCgb };
+	return (NetCallBacks::SendPacket(buffer) && NetCallBacks::ReadPacket(buffer, true) ? buffer[0] : 0xFF);
+}
+
+bool NetSerial::check(unsigned char out, unsigned char& in, bool& fastCgb)
+{
+	// return false if not connected
+	if (!NetCallBacks::is_connected)
+		return false;
+
+	// check incoming
+	unsigned char buffer_in[2];
+	if (!NetCallBacks::ReadPacket(buffer_in, false))
+		return false;
+	in = buffer_in[0];
+	fastCgb = !!buffer_in[1];
+
+	// send outgoing
+	unsigned char buffer_out[2] = { out, 128 };
+	return NetCallBacks::SendPacket(buffer_out);
+}
+
+const retro_netpacket_callback* NetSerial::getLibretroPacketInterface()
+{
+	static const retro_netpacket_callback packet_callback =
+	{
+		NetCallBacks::start,
+		NetCallBacks::receive,
+		NetCallBacks::stop,
+		NULL, /* poll */
+		NetCallBacks::connected,
+		NetCallBacks::disconnected,
+	};
+	return &packet_callback;
+}
+
+#endif

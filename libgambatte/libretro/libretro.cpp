@@ -1166,7 +1166,7 @@ static void deactivate_rumble(void)
 /* Rumble support END */
 /**********************/
 
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
 /* Core options 'update display' callback */
 static bool update_option_visibility(void)
 {
@@ -1498,8 +1498,10 @@ enum SerialMode {
 };
 static NetSerial gb_net_serial;
 static SerialMode gb_serialMode = SERIAL_NONE;
+#ifdef GBLINK_POSIX_SOCKETS
 static int gb_NetworkPort = 12345;
 static std::string gb_NetworkClientAddr;
+#endif
 #endif
 
 void retro_get_system_info(struct retro_system_info *info)
@@ -1508,8 +1510,10 @@ void retro_get_system_info(struct retro_system_info *info)
 #ifndef GIT_VERSION
 #define GIT_VERSION ""
 #endif
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    info->library_version = "v0.5.0-netlink" GIT_VERSION;
+#elif defined(HAVE_NETWORK)
+   info->library_version = "v0.5.0-libretronet" GIT_VERSION;
 #else
    info->library_version = "v0.5.0" GIT_VERSION;
 #endif
@@ -1594,6 +1598,11 @@ void retro_init(void)
    libretro_supports_ff_override = false;
    if (environ_cb(RETRO_ENVIRONMENT_SET_FASTFORWARDING_OVERRIDE, NULL))
       libretro_supports_ff_override = true;
+
+#if defined(HAVE_NETWORK) && !defined(GBLINK_POSIX_SOCKETS)
+   environ_cb(RETRO_ENVIRONMENT_SET_NETPACKET_INTERFACE, (void*)gb_net_serial.getLibretroPacketInterface());
+   gb.setSerialIO(&gb_net_serial);
+#endif
 }
 
 void retro_deinit(void)
@@ -1648,7 +1657,7 @@ void retro_set_environment(retro_environment_t cb)
    libretro_set_core_options(environ_cb, &option_categories);
    libretro_supports_option_categories |= option_categories;
 
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    /* If frontend supports core option categories,
     * gambatte_show_gb_link_settings is unused and
     * should be hidden */
@@ -2179,7 +2188,7 @@ static void check_variables(bool startup)
    /* Interframe blending option has its own handler */
    check_frame_blend_variable();
 
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
 
    gb_serialMode = SERIAL_NONE;
    var.key = "gambatte_gb_link_mode";

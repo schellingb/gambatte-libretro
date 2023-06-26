@@ -12,15 +12,20 @@
 class NetSerial : public gambatte::SerialIO
 {
 	public:
+#ifdef GBLINK_POSIX_SOCKETS
 		NetSerial();
 		~NetSerial();
 
 		bool start(bool is_server, int port, const std::string& hostname);
 		void stop();
+#else
+		const struct retro_netpacket_callback* getLibretroPacketInterface();
+#endif
 
 		virtual bool check(unsigned char out, unsigned char& in, bool& fastCgb);
 		virtual unsigned char send(unsigned char data, bool fastCgb);
 
+#ifdef GBLINK_POSIX_SOCKETS
 	private:
 		bool startServerSocket();
 		bool startClientSocket();
@@ -36,6 +41,7 @@ class NetSerial : public gambatte::SerialIO
 		int sockfd_;
 
 		clock_t lastConnectAttempt_;
+#endif
 };
 
 #endif

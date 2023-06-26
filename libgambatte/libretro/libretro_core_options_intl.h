@@ -1122,7 +1122,7 @@ struct retro_core_option_v2_definition option_defs_ar[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_AR,
@@ -2542,7 +2542,7 @@ struct retro_core_option_v2_definition option_defs_ast[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_AST,
@@ -3962,7 +3962,7 @@ struct retro_core_option_v2_definition option_defs_be[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_BE,
@@ -5382,7 +5382,7 @@ struct retro_core_option_v2_definition option_defs_ca[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_CA,
@@ -6802,7 +6802,7 @@ struct retro_core_option_v2_definition option_defs_chs[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_CHS,
@@ -8222,7 +8222,7 @@ struct retro_core_option_v2_definition option_defs_cht[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_CHT,
@@ -9642,7 +9642,7 @@ struct retro_core_option_v2_definition option_defs_cs[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_CS,
@@ -11062,7 +11062,7 @@ struct retro_core_option_v2_definition option_defs_cy[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_CY,
@@ -12482,7 +12482,7 @@ struct retro_core_option_v2_definition option_defs_da[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_DA,
@@ -13902,7 +13902,7 @@ struct retro_core_option_v2_definition option_defs_de[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_DE,
@@ -15322,7 +15322,7 @@ struct retro_core_option_v2_definition option_defs_el[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_EL,
@@ -16742,7 +16742,7 @@ struct retro_core_option_v2_definition option_defs_en[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_EN,
@@ -18162,7 +18162,7 @@ struct retro_core_option_v2_definition option_defs_eo[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_EO,
@@ -19582,7 +19582,7 @@ struct retro_core_option_v2_definition option_defs_es[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_ES,
@@ -21002,7 +21002,7 @@ struct retro_core_option_v2_definition option_defs_fa[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_FA,
@@ -22422,7 +22422,7 @@ struct retro_core_option_v2_definition option_defs_fi[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_FI,
@@ -23842,7 +23842,7 @@ struct retro_core_option_v2_definition option_defs_fr[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_FR,
@@ -25262,7 +25262,7 @@ struct retro_core_option_v2_definition option_defs_gl[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_GL,
@@ -26682,7 +26682,7 @@ struct retro_core_option_v2_definition option_defs_he[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_HE,
@@ -28102,7 +28102,7 @@ struct retro_core_option_v2_definition option_defs_hr[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_HR,
@@ -29522,7 +29522,7 @@ struct retro_core_option_v2_definition option_defs_hu[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_HU,
@@ -30942,7 +30942,7 @@ struct retro_core_option_v2_definition option_defs_id[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_ID,
@@ -32362,7 +32362,7 @@ struct retro_core_option_v2_definition option_defs_it[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_IT,
@@ -33782,7 +33782,7 @@ struct retro_core_option_v2_definition option_defs_ja[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_JA,
@@ -35202,7 +35202,7 @@ struct retro_core_option_v2_definition option_defs_ko[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_KO,
@@ -36622,7 +36622,7 @@ struct retro_core_option_v2_definition option_defs_nl[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_NL,
@@ -38042,7 +38042,7 @@ struct retro_core_option_v2_definition option_defs_no[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_NO,
@@ -39462,7 +39462,7 @@ struct retro_core_option_v2_definition option_defs_or[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_OR,
@@ -40882,7 +40882,7 @@ struct retro_core_option_v2_definition option_defs_pl[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_PL,
@@ -42302,7 +42302,7 @@ struct retro_core_option_v2_definition option_defs_pt_br[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_PT_BR,
@@ -43722,7 +43722,7 @@ struct retro_core_option_v2_definition option_defs_pt_pt[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_PT_PT,
@@ -45142,7 +45142,7 @@ struct retro_core_option_v2_definition option_defs_ru[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_RU,
@@ -46562,7 +46562,7 @@ struct retro_core_option_v2_definition option_defs_sk[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_SK,
@@ -47982,7 +47982,7 @@ struct retro_core_option_v2_definition option_defs_sr[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_SR,
@@ -49402,7 +49402,7 @@ struct retro_core_option_v2_definition option_defs_sv[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_SV,
@@ -50822,7 +50822,7 @@ struct retro_core_option_v2_definition option_defs_tr[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_TR,
@@ -52242,7 +52242,7 @@ struct retro_core_option_v2_definition option_defs_uk[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_UK,
@@ -53662,7 +53662,7 @@ struct retro_core_option_v2_definition option_defs_val[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_VAL,
@@ -55082,7 +55082,7 @@ struct retro_core_option_v2_definition option_defs_vn[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       GAMBATTE_SHOW_GB_LINK_SETTINGS_LABEL_VN,

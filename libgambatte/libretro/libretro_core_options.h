@@ -721,7 +721,7 @@ struct retro_core_option_v2_definition option_defs_us[] = {
       },
       "10"
    },
-#ifdef HAVE_NETWORK
+#if defined(HAVE_NETWORK) && defined(GBLINK_POSIX_SOCKETS)
    {
       "gambatte_show_gb_link_settings",
       "Show Game Link Settings",
