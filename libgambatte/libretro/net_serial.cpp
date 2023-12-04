@@ -305,11 +305,13 @@ struct NetCallBacks
 	static bool is_connected;
 	static unsigned char recv_buffer[32], recv_len;
 	static retro_netpacket_send_t send_fn;
+	static retro_netpacket_poll_receive_t poll_receive_fn;
 	static uint16_t target_client_id;
 
-	static void RETRO_CALLCONV start(uint16_t client_id, retro_netpacket_send_t _send_fn)
+	static void RETRO_CALLCONV start(uint16_t client_id, retro_netpacket_send_t _send_fn, retro_netpacket_poll_receive_t _poll_receive_fn)
 	{
 		send_fn = _send_fn;
+		poll_receive_fn = _poll_receive_fn;
 		if (client_id != 0)
 		{
 			// I am a client connected to the host
@@ -323,6 +325,8 @@ struct NetCallBacks
 		if (pktlen != 2 || recv_len == sizeof(recv_buffer)) return;
 		memcpy(recv_buffer + recv_len, pkt, 2);
 		recv_len += 2;
+		is_connected = true;
+		target_client_id = client_id;
 	}
 
 	static void RETRO_CALLCONV stop(void)
@@ -350,8 +354,8 @@ struct NetCallBacks
 	static bool SendPacket(unsigned char buffer[2])
 	{
 		// send and flush packet immediately
-		send_fn(RETRO_NETPACKET_RELIABLE, buffer, 2, target_client_id, false);
-		send_fn(0, 0, 0, 0, 0);
+		send_fn(RETRO_NETPACKET_RELIABLE | RETRO_NETPACKET_FLUSH_HINT, buffer, 2, target_client_id);
+		poll_receive_fn();
 		return is_connected; // if false stop was called
 	}
 
@@ -360,7 +364,7 @@ struct NetCallBacks
 		if (!recv_len)
 		{
 			// check latest incoming
-			send_fn(0, 0, 0, 0, 0);
+			poll_receive_fn();
 
 			// give up if we got disconnected or not blocking without data
 			if (!is_connected || (!recv_len && !block))
@@ -371,7 +375,7 @@ struct NetCallBacks
 				// block until data arrives
 				for (clock_t t_start = clock();;)
 				{
-					send_fn(0, 0, 0, 0, 0);
+					poll_receive_fn();
 					if (!is_connected) return false;
 					if (recv_len) break;
 					if (((clock() - t_start) / CLOCKS_PER_SEC) < 5) continue;
@@ -395,6 +399,7 @@ struct NetCallBacks
 bool NetCallBacks::is_connected;
 unsigned char NetCallBacks::recv_buffer[32], NetCallBacks::recv_len;
 retro_netpacket_send_t NetCallBacks::send_fn;
+retro_netpacket_poll_receive_t NetCallBacks::poll_receive_fn;
 uint16_t NetCallBacks::target_client_id;
 
 unsigned char NetSerial::send(unsigned char data, bool fastCgb)
